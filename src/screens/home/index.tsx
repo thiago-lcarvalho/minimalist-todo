@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 
@@ -19,8 +19,11 @@ export function Home() {
                 placeholder= 'hello'
                 placeholderTextColor= "#6B6B6B6B"
                 style= {styles.input}/>
-
-			<StatusBar style="auto" />
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.textButton}>
+                    +
+                </Text>
+            </TouchableOpacity>
 		</View>
 	);
 }
