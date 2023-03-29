@@ -7,3 +7,6 @@ updating daily (maybe)
 🤖
 🤖
 🤖
+
+
+getting used to component based development 😁
