@@ -23,6 +23,6 @@ export const styles = StyleSheet.create({
     },
     enabledText: {
         color: '#31CF67',
-        textDecorationLine: 'line-through',
+        textDecorationLine: 'line-through'
     }
 });
