@@ -4,9 +4,11 @@ import { styles } from './styles';
 import { Tasks } from '../../components/tasks';
 
 export function Home() {
-	function handleParticipantAdd() {
-		alert('Participant added successfully');
-	}
+	const [currentCount, setCurrentCount] = useState(0);
+
+	function handleTaskAdd() {}
+
+	function handleTaskRemove() {}
 
 	const [currentDate, setCurrentDate] = useState('');
 
@@ -22,6 +24,7 @@ export function Home() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>To do, today.</Text>
+			<Text style={styles.text}>0/0 done</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
 				<TextInput
@@ -31,12 +34,15 @@ export function Home() {
 				/>
 				<TouchableOpacity
 					style={styles.button}
-					onPress={handleParticipantAdd}
+					onPress={handleTaskAdd}
 				>
 					<Text style={styles.textButton}>+</Text>
 				</TouchableOpacity>
 			</View>
-			<Tasks/>
+			<Tasks
+				name="Lavar os pratos"
+				onRemove={handleTaskRemove}
+			/>
 		</View>
 	);
 }
