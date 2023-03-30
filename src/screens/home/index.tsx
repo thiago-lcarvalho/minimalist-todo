@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import {
+	Text,
+	TextInput,
+	View,
+	TouchableOpacity,
+	ScrollView,
+} from 'react-native';
 import { styles } from './styles';
 import { Tasks } from '../../components/tasks';
 
@@ -21,6 +27,18 @@ export function Home() {
 		setCurrentDate(date + '/' + month + '/' + year);
 	}, []);
 
+	const tasks = [
+		'task 1',
+		'task 2',
+		'task 3',
+		'task 4',
+		'task 5',
+		'task 6',
+		'task 7',
+		'task 8',
+		'task 9',
+	];
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>To do, today.</Text>
@@ -39,10 +57,15 @@ export function Home() {
 					<Text style={styles.textButton}>+</Text>
 				</TouchableOpacity>
 			</View>
-			<Tasks
-				name="Lavar os pratos"
-				onRemove={handleTaskRemove}
-			/>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				{tasks.map((task) => (
+					<Tasks
+						key={task}
+						name={task}
+						onRemove={handleTaskRemove}
+					/>
+				))}
+			</ScrollView>
 		</View>
 	);
 }

@@ -41,9 +41,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   form: {
-    marginTop: 36,
+    marginTop: 10,
     marginBottom: 42,
     width: '100%',
     flexDirection: 'row',
-  }
+  },
 });
