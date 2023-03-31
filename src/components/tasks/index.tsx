@@ -4,24 +4,26 @@ import { View, Text, Switch, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-
 type Props = {
 	name: string;
 	onRemove: () => void;
-}
+};
 
 export function Tasks({ name, onRemove }: Props) {
 	const [isChecked, setChecked] = useState(false);
-	const [count, setCount] = useState(1);
 
 	function toggleCheck() {
-		if (isChecked == false) {
-			setChecked(true);
-			setCount(count - 1);
-		} else if (isChecked == true) {
-			setChecked(false);
-			setCount(count + 1);
-		}
+		setChecked(!isChecked);
+
+		// previously ...
+
+		// if (isChecked == false) {
+		// 	setChecked(true);
+		// } else if (isChecked == true) {
+		// 	setChecked(false);
+		// }
+
+		// design patterns are my passion
 	}
 
 	return (
@@ -35,8 +37,13 @@ export function Tasks({ name, onRemove }: Props) {
 				innerIconStyle={{ borderWidth: 3 }}
 				onPress={toggleCheck}
 			/>
-			<Text style={[styles.text, isChecked && styles.enabledText]}>{name}</Text>
-			<TouchableOpacity style={styles.button} onPress={onRemove}>
+			<Text style={[styles.text, isChecked && styles.enabledText]}>
+				{name}
+			</Text>
+			<TouchableOpacity
+				style={styles.button}
+				onPress={onRemove}
+			>
 				<Text style={styles.textButton}>-</Text>
 			</TouchableOpacity>
 		</View>

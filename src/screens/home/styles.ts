@@ -46,4 +46,11 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
   },
+  emptyList: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    paddingBottom: 10,
+  }
 });

@@ -5,13 +5,12 @@ import {
 	View,
 	TouchableOpacity,
 	ScrollView,
+	FlatList,
 } from 'react-native';
 import { styles } from './styles';
 import { Tasks } from '../../components/tasks';
 
 export function Home() {
-	const [currentCount, setCurrentCount] = useState(0);
-
 	function handleTaskAdd() {}
 
 	function handleTaskRemove() {}
@@ -27,25 +26,35 @@ export function Home() {
 		setCurrentDate(date + '/' + month + '/' + year);
 	}, []);
 
-	const tasks = [
-		'task 1',
-		'task 2',
-		'task 3',
-		'task 4',
-		'task 5',
-		'task 6',
-		'task 7',
-		'task 8',
+	const tasks = ['task 1', 'task 2', 'task 3'];
+
+	const taskPlaceholder = [
+		'Take out the trash',
+		'Drink 8 glasses of water',
+		'Go for a 30-minute walk',
+		'Do laundry',
+		'Clean the kitchen',
+		'Write blog post',
+		'Organize email inbox',
+		'Learn new tech',
+		'Plan weekly tasks',
+		'Code review practice',
+		'Meditate for 10min',
+		'Organize workspace',
 	];
+
+	function randomPlaceholder() {
+		return Math.floor(Math.random() * 13);
+	}
 
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>To do, today.</Text>
-			<Text style={styles.text}>0/0 done</Text>
+			<Text style={styles.text}>0/{tasks.length} done</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
 				<TextInput
-					placeholder="add a task..."
+					placeholder={taskPlaceholder[randomPlaceholder()]}
 					placeholderTextColor="#6B6B6B6B"
 					style={styles.input}
 				/>
@@ -56,15 +65,26 @@ export function Home() {
 					<Text style={styles.textButton}>+</Text>
 				</TouchableOpacity>
 			</View>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				{tasks.map((task) => (
+			<FlatList
+				data={tasks}
+				keyExtractor={(item) => item}
+				renderItem={({ item }) => (
 					<Tasks
-						key={task}
-						name={task}
+						key={item}
+						name={item}
 						onRemove={handleTaskRemove}
 					/>
-				))}
-			</ScrollView>
+				)}
+				showsVerticalScrollIndicator={false}
+				ListEmptyComponent={() => (
+					<>
+						<Text style={styles.emptyList}>
+							add a task to start your day
+						</Text>
+						<Text style={styles.emptyList}>{`:)`}</Text>
+					</>
+				)}
+			></FlatList>
 		</View>
 	);
 }
