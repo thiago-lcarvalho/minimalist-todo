@@ -5,18 +5,35 @@ import {
 	View,
 	TouchableOpacity,
 	FlatList,
+	Alert,
 } from 'react-native';
 import { styles } from './styles';
 import { Tasks } from '../../components/tasks';
 
 export function Home() {
-	const [tasksArray, setTasksArray] = useState([]);
+	const [tasks, setTasks] = useState<string[]>([]);
+	const [taskName, setTaskName] = useState('');
 
-	const handleButtonPress = () => {
-		setTasksArray([...tasksArray, 'test']);
+	function handleTaskAdd() {
+		setTasks(prevState => [...prevState, taskName])
+		setTaskName('');
 	};
 
-	function handleTaskRemove() {}
+	function handleTaskRemove(name: string) {
+		Alert.alert('Remove task', `Remove task ${name}`, [
+			{
+				text: 'Yes',
+				onPress: () => Alert.alert('Removed'),
+				style: 'destructive',
+			},
+			{
+				text: 'No',
+				style: 'cancel',
+			},
+		]);
+	}
+
+	const tasksTest = ['task1', 'task2', 'task3', 'task4'];
 
 	const [currentDate, setCurrentDate] = useState('');
 
@@ -47,37 +64,34 @@ export function Home() {
 	function randomPlaceholder() {
 		return Math.floor(Math.random() * 13);
 	}
-
-	function test() {
-		alert('ok');
-	}
-
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>To do, today.</Text>
-			<Text style={styles.text}>0/{tasksArray.length} done</Text>
+			<Text style={styles.text}>0/{tasks.length} done</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
 				<TextInput
 					placeholder={taskPlaceholder[randomPlaceholder()]}
 					placeholderTextColor="#6B6B6B6B"
 					style={styles.input}
+					onChangeText={setTaskName}
+					value={taskName}
 				/>
 				<TouchableOpacity
 					style={styles.button}
-					onPress={handleButtonPress}
+					onPress={() => handleTaskAdd()}
 				>
 					<Text style={styles.textButton}>+</Text>
 				</TouchableOpacity>
 			</View>
 			<FlatList
-				data={tasksArray}
+				data={tasks}
 				keyExtractor={(item) => item}
 				renderItem={({ item }) => (
 					<Tasks
 						key={item}
 						name={item}
-						onRemove={handleTaskRemove}
+						onRemove={() => handleTaskRemove(item)}
 					/>
 				)}
 				showsVerticalScrollIndicator={false}
