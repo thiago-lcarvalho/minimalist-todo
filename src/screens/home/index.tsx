@@ -4,14 +4,17 @@ import {
 	TextInput,
 	View,
 	TouchableOpacity,
-	ScrollView,
 	FlatList,
 } from 'react-native';
 import { styles } from './styles';
 import { Tasks } from '../../components/tasks';
 
 export function Home() {
-	function handleTaskAdd() {}
+	const [tasksArray, setTasksArray] = useState([]);
+
+	const handleButtonPress = () => {
+		setTasksArray([...tasksArray, 'test']);
+	};
 
 	function handleTaskRemove() {}
 
@@ -25,8 +28,6 @@ export function Home() {
 		var date = dt.getDate().toString().padStart(2, '0');
 		setCurrentDate(date + '/' + month + '/' + year);
 	}, []);
-
-	const tasks = ['task 1', 'task 2', 'task 3'];
 
 	const taskPlaceholder = [
 		'Take out the trash',
@@ -47,10 +48,14 @@ export function Home() {
 		return Math.floor(Math.random() * 13);
 	}
 
+	function test() {
+		alert('ok');
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>To do, today.</Text>
-			<Text style={styles.text}>0/{tasks.length} done</Text>
+			<Text style={styles.text}>0/{tasksArray.length} done</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
 				<TextInput
@@ -60,13 +65,13 @@ export function Home() {
 				/>
 				<TouchableOpacity
 					style={styles.button}
-					onPress={handleTaskAdd}
+					onPress={handleButtonPress}
 				>
 					<Text style={styles.textButton}>+</Text>
 				</TouchableOpacity>
 			</View>
 			<FlatList
-				data={tasks}
+				data={tasksArray}
 				keyExtractor={(item) => item}
 				renderItem={({ item }) => (
 					<Tasks
