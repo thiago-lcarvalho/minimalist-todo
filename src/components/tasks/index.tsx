@@ -15,7 +15,7 @@ export function Tasks({ name, onRemove, setNumCompleted }: Props) {
 
 	function toggleCheck() {
 		setChecked(!isChecked);
-		setNumCompleted((prevState: number) =>
+		setNumCompleted((prevState: any) =>
 			isChecked ? prevState - 1 : prevState + 1
 		);
 	}

@@ -15,7 +15,6 @@ export function Home() {
 	const [tasks, setTasks] = useState<string[]>([]);
 	const [taskName, setTaskName] = useState('');
 	const [numCompleted, setNumCompleted] = useState<number>(0);
-	const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
 	function handleTaskAdd() {
 		if (taskName === '') {
@@ -27,6 +26,9 @@ export function Home() {
 
 	function handleTaskRemove(name: string) {
 		setTasks((prevState) => prevState.filter((t) => t !== name));
+		setNumCompleted((prevState: any) =>
+			prevState - 1
+		);
 	}
 
 	const tasksTest = ['task1', 'task2', 'task3', 'task4'];
@@ -85,8 +87,8 @@ export function Home() {
 						: styles.text
 				}
 			>
-				{numCompleted}/{tasks.length} done { numCompleted == tasks.length && tasks.length !== 0
-						? "🎉" : "" }
+				{numCompleted}/{tasks.length} done{' '}
+				{numCompleted == tasks.length && tasks.length !== 0 ? '🎉' : ''}
 			</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
