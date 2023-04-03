@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: 'bold',
   },
+  completedText : {
+    color: '#31CF67',
+    fontSize: 34,
+    fontWeight: 'bold',
+  },
   input: {
     flex: 1,
     height: 56,

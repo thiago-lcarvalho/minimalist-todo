@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { View, Text, Switch, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
@@ -7,23 +7,17 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 type Props = {
 	name: string;
 	onRemove: () => void;
+	setNumCompleted: (num: any) => void;
 };
 
-export function Tasks({ name, onRemove }: Props) {
+export function Tasks({ name, onRemove, setNumCompleted }: Props) {
 	const [isChecked, setChecked] = useState(false);
 
 	function toggleCheck() {
 		setChecked(!isChecked);
-
-		// previously ...
-
-		// if (isChecked == false) {
-		// 	setChecked(true);
-		// } else if (isChecked == true) {
-		// 	setChecked(false);
-		// }
-
-		// design patterns are my passion
+		setNumCompleted((prevState: number) =>
+			isChecked ? prevState - 1 : prevState + 1
+		);
 	}
 
 	return (
@@ -35,7 +29,8 @@ export function Tasks({ name, onRemove }: Props) {
 				unfillColor="#1F1E25"
 				iconStyle={{ borderColor: 'red' }}
 				innerIconStyle={{ borderWidth: 3 }}
-				onPress={toggleCheck}
+				onPress={() => toggleCheck()}
+				isChecked={isChecked}
 			/>
 			<Text style={[styles.text, isChecked && styles.enabledText]}>
 				{name}
