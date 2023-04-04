@@ -15,6 +15,7 @@ export function Home() {
 	const [tasks, setTasks] = useState<string[]>([]);
 	const [taskName, setTaskName] = useState('');
 	const [numCompleted, setNumCompleted] = useState<number>(0);
+	const [placeholderNumber, setPlaceholderNumber] = useState<number>(0);
 
 	function handleTaskAdd() {
 		if (taskName === '') {
@@ -29,8 +30,12 @@ export function Home() {
 
 	function handleTaskRemove(name: string) {
 		setTasks((prevState) => prevState.filter((t) => t !== name));
-		setNumCompleted((prevState: any) => prevState - 1);
+		setNumCompleted(
+			(prevState: any) => prevState == 0 ? prevState-- : 0);
 	}
+
+	// TODO => fix bug where removing a uncompleted task while
+	// TODO => some task is completed will make the number of completed tasks go down
 
 	const tasksTest = ['task1', 'task2', 'task3', 'task4'];
 
@@ -81,8 +86,6 @@ export function Home() {
 	return (
 		<View style={styles.container}>
 			{confettiCheck(0)}
-			{confettiCheck(100)}
-			{confettiCheck(1000)}
 			<Text style={styles.text}>To do, today.</Text>
 			<Text
 				style={
@@ -91,8 +94,10 @@ export function Home() {
 						: styles.text
 				}
 			>
-				{numCompleted}/{tasks.length} done{' '}
-				{numCompleted == tasks.length && tasks.length !== 0 ? '🎉' : ''}
+				{numCompleted}/{tasks.length} done
+				{numCompleted == tasks.length && tasks.length !== 0
+					? ' 🎉'
+					: ''}
 			</Text>
 			<Text style={styles.textDate}>{currentDate}</Text>
 			<View style={styles.form}>
