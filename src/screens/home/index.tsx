@@ -20,15 +20,16 @@ export function Home() {
 		if (taskName === '') {
 			return Alert.alert(`Task can't be empty`);
 		}
+		if (tasks.includes(taskName)) {
+			return Alert.alert(`Task already exists`);
+		}
 		setTasks((prevState) => [...prevState, taskName]);
 		setTaskName('');
 	}
 
 	function handleTaskRemove(name: string) {
 		setTasks((prevState) => prevState.filter((t) => t !== name));
-		setNumCompleted((prevState: any) =>
-			prevState - 1
-		);
+		setNumCompleted((prevState: any) => prevState - 1);
 	}
 
 	const tasksTest = ['task1', 'task2', 'task3', 'task4'];
@@ -59,12 +60,13 @@ export function Home() {
 		'Organize workspace',
 	];
 
-	function confettiCheck() {
+	function confettiCheck(delay: number) {
 		if (numCompleted === tasks.length && tasks.length !== 0) {
 			return (
 				<ConfettiCannon
 					count={200}
 					origin={{ x: -10, y: 0 }}
+					autoStartDelay={delay}
 				/>
 			);
 		} else {
@@ -78,7 +80,9 @@ export function Home() {
 
 	return (
 		<View style={styles.container}>
-			{confettiCheck()}
+			{confettiCheck(0)}
+			{confettiCheck(100)}
+			{confettiCheck(1000)}
 			<Text style={styles.text}>To do, today.</Text>
 			<Text
 				style={
